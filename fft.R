@@ -28,6 +28,8 @@ path <- ''
 setwd(path)
 files <- list.files(path, pattern=".csv")
 for ( file in files){
+  #空の行列を作成
+  out_ma <- matrix(nrow=length(x), ncol=0)
   file_path <- paste(path, file, sep="")
   df <- read.csv(file_path, header=TRUE)
   for (col in names(df)){
@@ -42,6 +44,8 @@ for ( file in files){
     graph_name <- paste(strsplit(file, "_imp.csv"), paste("fft_", col, sep = ""), sep="_")
     plot(c_spec, type="l", main=graph_name)
     
+    out_ma <- cbind(out_ma, c_spec)
+    
     ##ピリオドグラム(周期成分の強さを示す)
     #spec.pgram(x,log="no")
     
@@ -51,5 +55,7 @@ for ( file in files){
     graph_name2 <- paste(strsplit(file, "_imp.csv"), paste("inversed_fft_", col, sep = ""), sep="_")
     plot(x_length, c_inverse, type="l", main=graph_name2)
   }
+  out_df <- as.data.frame(out_ma)
+  write.csv(out_df, "", quote=FALSE, row.names=FALSE)
 }
 
