@@ -18,10 +18,10 @@ def file_reader(csv):
     return df
 #data=file_reader(f).iloc[:,2]
 
-train=df.iloc[:,1][0:100]
-test=df.iloc[:,1][101:201]
+train=df.iloc[:,1][0:144]
+test=df.iloc[:,1][144:288]
 
-dico = MiniBatchDictionaryLearning(n_components=500, alpha=1, n_iter=1000,transform_algorithm = 'lasso_lars',transform_alpha=1.0, fit_algorithm = 'lars')  
+dico = MiniBatchDictionaryLearning(n_components=500, alpha=1, n_iter=10000,transform_algorithm = 'lasso_lars',transform_alpha=1.0, fit_algorithm = 'lars')  
 V = dico.fit(train).components_
 
 coder = SparseCoder(dictionary=V, transform_algorithm='omp', transform_n_nonzero_coefs=10)
