@@ -22,10 +22,10 @@ plot(x_length, c_inverse, type="l", main="inversed_fft")
 ########################
 ##全ファイル対象
 
-path <- ''
+path <- ""
 setwd(path)
 files <- list.files(path, pattern=".csv")
-out_path <- ''
+out_path <- ""
 for ( file in files){
   #空の行列を作成
   out_ma <- matrix(nrow=length(x), ncol=0)

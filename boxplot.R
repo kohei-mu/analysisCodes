@@ -1,5 +1,5 @@
 
-path <- ''
+path <-  ""
 setwd(path)
 files <- list.files(path, pattern=".csv")
 for(file in files){

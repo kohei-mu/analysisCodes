@@ -2,7 +2,7 @@ library(psych)
 library(minerva)
 
 #’Êí”gŒ`‚Ì‘ŠŠÖ
-path <- ''
+path <-  ""
 setwd(path)
 files <- list.files(path, pattern=".csv")
 for (file in files){
@@ -30,7 +30,7 @@ for (file in files){
 
 
 #FFT‚ğŠ|‚¯‚½‚ ‚Æ‚Ì‘ŠŠÖ
-path <- ''
+path <-  ""
 setwd(path)
 files <- list.files(path, pattern=".csv")
 for (file in files){

@@ -1,6 +1,6 @@
 library(mice)
 
-path <- ''
+path <- ""
 setwd(path)
 files <- list.files(path, pattern=".csv")
 
