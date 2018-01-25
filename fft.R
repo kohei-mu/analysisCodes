@@ -1,5 +1,3 @@
-library(data.table)
-library(dplyr)
 
 ##個別データ対象
 
@@ -27,22 +25,24 @@ plot(x_length, c_inverse, type="l", main="inversed_fft")
 path <- ''
 setwd(path)
 files <- list.files(path, pattern=".csv")
+out_path <- ''
 for ( file in files){
   #空の行列を作成
   out_ma <- matrix(nrow=length(x), ncol=0)
   file_path <- paste(path, file, sep="")
   df <- read.csv(file_path, header=TRUE)
+
   for (col in names(df)){
     x <- df[[col]]
     
     #元データをプロット
-    plot(x, type="l", main=paste(strsplit(file, "_imp.csv"), paste("original_", col, sep = ""), sep="_"))
+    #plot(x, type="l", main=paste(strsplit(file, "_imp.csv"), paste("original_", col, sep = ""), sep="_"))
     
     #フーリエ変換
     c <- fft(x)
     c_spec <- abs(c/length(x))[2:length(c)]
-    graph_name <- paste(strsplit(file, "_imp.csv"), paste("fft_", col, sep = ""), sep="_")
-    plot(c_spec, type="l", main=graph_name)
+    #graph_name <- paste(strsplit(file, "_imp.csv"), paste("fft_", col, sep = ""), sep="_")
+    #plot(c_spec, type="l", main=graph_name)
     
     out_ma <- cbind(out_ma, c_spec)
     
@@ -52,10 +52,12 @@ for ( file in files){
     #逆変換
     x_length <- 1:length(x)
     c_inverse <- fft(c, inverse = TRUE) / length(x)
-    graph_name2 <- paste(strsplit(file, "_imp.csv"), paste("inversed_fft_", col, sep = ""), sep="_")
-    plot(x_length, c_inverse, type="l", main=graph_name2)
+    #graph_name2 <- paste(strsplit(file, "_imp.csv"), paste("inversed_fft_", col, sep = ""), sep="_")
+    #plot(x_length, c_inverse, type="l", main=graph_name2)
   }
   out_df <- as.data.frame(out_ma)
-  write.csv(out_df, "", quote=FALSE, row.names=FALSE)
+  colnames(out_df) <- names(df)
+  out_file <- paste(strsplit(file, ".csv"), "_fft.csv", sep="")
+  write.csv(out_df, paste(out_path,out_file,sep=""), quote=FALSE, row.names=FALSE)
 }
 

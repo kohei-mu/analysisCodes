@@ -1,11 +1,4 @@
-library(xts)
-library(data.table)
-library(psych)
-library(stringr)
-library(vegan)
-library(dplyr)
 library(mice)
-library(minerva)
 
 path <- ''
 setwd(path)
@@ -45,20 +38,6 @@ for ( file in files){
   write.csv(completedData, out_file, quote=FALSE, row.names=FALSE)
 
 }
-
-##相関プロット
-
-#ピアソンの相関係数（単調）
-p <- cor(completedData[,1:ncol(completedData)],method="pearson")
-cor.plot(p ,numbers = T,main="pearson",xlas=2,cex.axis=0.75, cex=0.5)
-
-#スピアマンの相関係数（同調）
-s <- cor(completedData[,1:ncol(completedData)],method="spearman")
-cor.plot(s,numbers = T,main="spearman",xlas=2,cex.axis=0.75, cex=0.5)
-
-#MIC(非線形)
-m <- mine(completedData[,1:ncol(completedData)])$MIC
-cor.plot(m,numbers = T,main="mic",xlas=2,cex.axis=0.75, cex=0.5)
 
 
 
