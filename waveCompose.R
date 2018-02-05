@@ -6,8 +6,22 @@ plot(sin_original, type="l", main="sin original")
 #fft original wave
 c <- fft(sin_original)
 c_len <- round(length(c)/2)
-c_fft <- Mod(c)[1:c_len]
+c_fft <- Mod(c)[1:c_len] 
 plot(c_fft, type="l", main="original FFT")
+
+
+a <- c_fft/2
+b <- c_fft/2
+j <- 1
+for(i in seq(length(b), 1, by=-1)){
+  a <- append(a, b[i])
+  j <- j + 1
+}
+
+plot(c_fft, type="l", main="original FFT")
+
+c_inverse <- fft(c_fft, inverse = TRUE) / length(c_fft)
+plot(2:length(c), append(c_inverse,c_inverse[2:length(c_inverse)]), type="l", main="inversed_fft")
 
 # add random sin
 sin_tmp <- sin_original
